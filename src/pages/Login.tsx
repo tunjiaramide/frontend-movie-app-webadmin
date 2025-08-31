@@ -1,5 +1,5 @@
-// src/pages/Login.jsx
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
+import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -7,11 +7,10 @@ export default function Login() {
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
-  // Redirect if already logged in
   useEffect(() => {
     const stored = localStorage.getItem("isLoggedIn");
     if (stored === "true" || isAuthenticated) {
@@ -19,7 +18,7 @@ export default function Login() {
     }
   }, [navigate, isAuthenticated]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (login(username, password)) {
       navigate("/dashboard", { replace: true });
